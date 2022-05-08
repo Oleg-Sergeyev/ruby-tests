@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'faker'
 
 module Services
   class UserGenerator
-
     def self.generate
       { email: Faker::Internet.safe_email,
         first_name: Faker::Name.first_name,
