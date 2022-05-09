@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/services/week_days'
+require_relative '../../lib/services/week_days'
 
 RSpec.describe Services::WeekDays do
   context 'Сервис объект WeekDays' do

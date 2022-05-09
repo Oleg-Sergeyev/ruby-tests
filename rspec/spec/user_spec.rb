@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../lib/user'
-require_relative '../lib/services/user_generator'
+require_relative '../../lib/user'
+require_relative '../../lib/services/user_generator'
 
 RSpec.describe User do
   let(:some_user) { Services::UserGenerator.generate }
