@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'support/size_checker'
+require_relative 'support/enumerable_shared_examples'
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
