@@ -3,6 +3,7 @@
 require 'faker'
 
 module Services
+  # class UserGenerator
   class UserGenerator
     def self.generate
       { email: Faker::Internet.safe_email,
