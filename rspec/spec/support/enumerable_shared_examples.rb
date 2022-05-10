@@ -2,7 +2,7 @@
 
 RSpec.shared_examples 'Enumerable' do |store_class|
   let(:empty_collection) { store_class.new }
-  context 'при обращении к итертатору', enumerable: true do
+  context 'при обращении к итертатору', :enumerable do
     it(:each) { expect(empty_collection).to respond_to :each }
     it(:map) { expect(empty_collection).to respond_to :map }
     it(:select) { expect(empty_collection).to respond_to :select }

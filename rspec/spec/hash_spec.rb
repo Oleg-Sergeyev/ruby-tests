@@ -4,7 +4,7 @@ RSpec.describe 'Хэш в Ruby' do
   let(:empty_hash) { {} }
   it_behaves_like 'Enumerable', Hash
 
-  context 'при обращении к квадратным скобкам', enumerable: true do
+  context 'при обращении к квадратным скобкам', :enumerable do
     let(:hsh) { { first: :hello, second: :world } }
     it 'можно извлекать значения по ключу' do
       expect(hsh).to respond_to :[]
@@ -21,7 +21,7 @@ RSpec.describe 'Хэш в Ruby' do
       expect(empty_hash.size).to be 1
     end
   end
-  context 'при обращении к методу', enumerable: true do
+  context 'при обращении к методу', :enumerable do
     it(:to_hash) { expect(empty_hash).to respond_to :to_hash }
   end
 end

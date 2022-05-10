@@ -1,11 +1,10 @@
 # frozen_string_literal: true
-
-require_relative 'support/size_checker'
-require_relative 'support/enumerable_shared_examples'
+Dir.children("#{Dir.pwd}/spec/support").each { |file| require_relative "support/#{file}" }
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.include SizeChecker
+  config.include UserGenerator
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

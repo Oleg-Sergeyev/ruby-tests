@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/user'
-require_relative '../../lib/services/user_generator'
 
 RSpec.describe User do
-  let(:some_user) { Services::UserGenerator.generate }
-  let(:user) { User.new(some_user) }
+  let(:some_user) { generate }
+  let(:user) { described_class.new(some_user) }
 
   context 'содержит методы' do
     it :email do

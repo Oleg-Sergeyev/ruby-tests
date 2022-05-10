@@ -9,7 +9,7 @@ RSpec.describe Services::WeekDays do
     end
 
     it 'является хеш-объектом' do
-      expect(generate.respond_to?(:keys)).to eq true
+      expect(generate).to respond_to :keys
     end
 
     it 'содержит общее количество дней - 7' do
