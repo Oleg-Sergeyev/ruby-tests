@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def convert_by_tester(value)
   range = (1...999)
   hash = { bytes: (value.to_f / 1).round(2),

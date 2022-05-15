@@ -3,41 +3,45 @@
 require_relative '../../lib/user'
 
 RSpec.describe User do
-  let(:some_user) { generate }
-  let(:user) { described_class.new(some_user) }
+  let(:user_ru) { described_class.new(generate(:ru, :male, true)) }
+  let(:user_eng) { described_class.new(generate(:eng, nil, true)) }
+  let(:user_ru_fault) { described_class.new(generate(:ru, :male, false)) }
+  let(:user_eng_fault) { described_class.new(generate(:eng, nil, false)) }
+  it_behaves_like 'UserMethods', User
 
-  context 'содержит методы' do
-    it :email do
-      expect(user).to respond_to :email
-    end
-    it :first_name do
-      expect(user).to respond_to :first_name
-    end
-    it :last_name do
-      expect(user).to respond_to :last_name
-    end
-    it :middle_name do
-      expect(user).to respond_to :middle_name
-    end
-  end
-
-  context 'корректно возвращает' do
-    it :email do
-      expect(user.email).to eq some_user[:email]
-    end
-    it :first_name do
-      expect(user.first_name).to eq some_user[:first_name]
-    end
-    it :last_name do
-      expect(user.last_name).to eq some_user[:last_name]
-    end
-    it :middle_name do
-      expect(user.middle_name).to eq some_user[:middle_name]
-    end
-  end
-  context 'Созданный пользователь содержит в поле "email"' do
+  context 'Созданный пользователь RU содержит корректный', :lesson do
     it 'электронный адрес' do
-      expect(user.email).to match(/^\S+@\S+\.\S+$/)
+      expect(user_ru.email).to be_email
+    end
+    it 'имя' do
+      expect(user_ru.first_name).to be_cyrillic
+    end
+  end
+  context 'Пользователь Eng содержит корректный', :lesson do
+    it 'электронный адрес' do
+      expect(user_eng.email).to be_email
+    end
+    it 'имя' do
+      expect(user_eng.first_name).to be_latin
+    end
+  end
+  context 'Пользователь RU_FAULT содержит', :lesson do
+    it 'некорректный электронный адрес!' do
+      expect(user_ru_fault.email).to not_email
+      # expect(user_eng_fault.first_name).to raise_error('Некорректный электронный адрес!')
+    end
+    it 'некорректное имя!' do
+      expect(user_ru_fault.first_name).to not_cyrillic
+      # expect(user_eng_fault.first_name).to raise_error('Некорректное имя!')
+    end
+  end
+  context 'Пользователь Eng_FAULT содержит', :lesson do
+    it 'некорректный электронный адрес!' do
+      expect(user_eng_fault.email).to not_email
+      # expect(user_eng_fault.email).to raise_error('Некорректный электронный адрес!')
+    end
+    it 'некорректное имя!' do
+      expect(user_eng_fault.first_name).to not_latin
     end
   end
 end

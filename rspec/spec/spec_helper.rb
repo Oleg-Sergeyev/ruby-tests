@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Dir.children("#{Dir.pwd}/spec/support").each { |file| require_relative "support/#{file}" }
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
