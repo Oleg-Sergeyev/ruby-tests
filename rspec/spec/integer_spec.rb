@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/services/integer_converter'
+#require_relative '../../lib/services/integer_converter'
 
 RSpec.describe "Сервис объект #{Services::IntegerConverter}" do
   let(:test_value) { convert_by_integer_converter(5_000_000) }

@@ -4,7 +4,7 @@
 Dir['spec/support/*.rb'].each do |file|
   require_relative "../#{file}"
 end
-Dir['../lib/*.rb'].each do |file|
+Dir['../lib/**/*.rb'].each do |file|
   require_relative "../#{file}"
 end
 

@@ -22,7 +22,7 @@ RSpec.describe SolarSystem do
     it 'значение в hash[:earth] соотвствует 3' do
       expect(solar_system.to_h[:earth]).to eq 3
     end
-    describe 'при обращении к несуществующей планете moon' do
+    context 'при обращении к несуществующей планете moon' do
       it 'срабатывает исключение' do
         expect { solar_system.moon }.to raise_error(NotExistingPlanetException)
       end
