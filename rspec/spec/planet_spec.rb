@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/solar_system'
+# frozen_string_literal: true
 
 RSpec.describe SolarSystem do
   let(:solar_system) { described_class.new }
   it_behaves_like 'PlanetMethods', SolarSystem
-
   context 'Объект Cолнечная система', :lesson do
     it 'содержит 9 планет' do
       expect(solar_system.size).to eq 9
@@ -25,7 +24,7 @@ RSpec.describe SolarSystem do
     end
     describe 'при обращении к несуществующей планете moon' do
       it 'срабатывает исключение' do
-        expect { solar_system.moon }.to raise_error('Не существующая планета!')
+        expect { solar_system.moon }.to raise_error(NotExistingPlanetException)
       end
     end
   end

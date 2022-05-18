@@ -10,19 +10,19 @@ end
 
 RSpec::Matchers.define :be_email do
   match do |actual|
-    actual.match(/^\S+@\S+\.\S+$/)
+    (/^\S+@\S+\.\S+$/).match? actual
   end
 end
 
 RSpec::Matchers.define :be_cyrillic do
   match do |actual|
-    actual.match(/^[а-яА-ЯёЁ]+/)
+    (/^[а-яА-ЯёЁ]+/).match? actual
   end
 end
 
 RSpec::Matchers.define :be_latin do
   match do |actual|
-    actual.match(/^[a-zA-Z]+/)
+    (/^[a-zA-Z]+/).match? actual
   end
 end
 # negation

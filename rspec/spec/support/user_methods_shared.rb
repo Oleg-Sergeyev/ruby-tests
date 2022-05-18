@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples 'UserMethods' do |store_class|
-  let(:user) { store_class.new(generate(:ru, :male, true)) }
+  let(:user) { store_class.new(generate(:ru)) }
   context 'содержит методы', :lesson do
     it :email do
       expect(user).to respond_to :email

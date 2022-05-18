@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-Dir.children("#{Dir.pwd}/spec/support").each { |file| require_relative "support/#{file}" }
+# Dir.children("#{Dir.pwd}/spec/support").each { |file| require_relative "support/#{file}" }
+Dir['spec/support/*.rb'].each do |file|
+  require_relative "../#{file}"
+end
+Dir['../lib/*.rb'].each do |file|
+  require_relative "../#{file}"
+end
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

@@ -1,38 +1,25 @@
 # frozen_string_literal: true
-# frozen_string_literal: tRUe
 
 require 'ffaker'
 
 # module UserGenerator
 module UserGenerator
-  def generate(national, sex, correct)
-    return generate_ru(sex, correct) if national == :ru
-    return generate_eng(correct) if national == :eng
+  def generate(national, error = nil)
+    user = national == :ru ? cirilyc_names : latin_names
+    user.update({ email: FFaker::Internet.safe_email })
+    user.update({ error.keys.first => FFaker::Time.date.to_s }) if error && error[error.keys.first] == :wrong
+    [user, national]
   end
 
-  def generate_ru(sex, correct)
-    if correct == false
-      return { email: FFaker::Internet.domain_name,
-               first_name: FFaker::Name.public_send("first_name_#{sex}"),
-               last_name: FFaker::NameRU.public_send("last_name_#{sex}"),
-               middle_name: FFaker::NameRU.public_send("middle_name_#{sex}") }
-    end
-    { email: FFaker::Internet.safe_email,
-      first_name: FFaker::NameRU.public_send("first_name_#{sex}"),
-      last_name: FFaker::NameRU.public_send("last_name_#{sex}"),
-      middle_name: FFaker::NameRU.public_send("middle_name_#{sex}") }
+  def cirilyc_names
+    { first_name: FFaker::NameRU.first_name,
+      last_name: FFaker::NameRU.last_name,
+      middle_name: FFaker::NameRU.send("middle_name_#{%w[male female].sample}") }
   end
 
-  def generate_eng(correct)
-    if correct == false
-      return { email: FFaker::Internet.domain_name,
-               first_name: FFaker::NameRU.first_name,
-               last_name: FFaker::Name.last_name,
-               middle_name: '' }
-    end
-    { email: FFaker::Internet.safe_email,
-      first_name: FFaker::Name.first_name,
+  def latin_names
+    { first_name: FFaker::Name.first_name,
       last_name: FFaker::Name.last_name,
-      middle_name: '' }
+      middle_name: nil }
   end
 end

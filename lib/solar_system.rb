@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# class UserException
+# class NotExistingPlanetException
 class NotExistingPlanetException < RuntimeError
 end
 
@@ -23,10 +23,11 @@ class SolarSystem
     end
   end
 
-  def method_missing(method, *_args)
-    raise NotExistingPlanetException, "Планеты '#{method}' в солнечной системе не существует!"
-  rescue NotExistingPlanetException => e
-    puts e.message.to_s
+  # "Планеты '#{method}' в солнечной системе не существует!"
+  def method_missing(_method, *_args)
+    raise NotExistingPlanetException, 'No planet'
+    # rescue NotExistingPlanetException => e
+    #   e.message.to_s
   end
 
   # rubocop requires respond_to_missing? for method_missing
@@ -35,19 +36,18 @@ class SolarSystem
   end
 
   def each(&block)
-    initialize.each do |member|
+    PLANTES.each do |member|
       block.call(member)
     end
   end
 
   def size
-    initialize.reduce(0) { |memo, (_key, _val)| memo + 1 }
+    PLANTES.reduce(0) { |memo, (_key, _val)| memo + 1 }
   end
 
   def to_h
-    hash = {}
-    initialize.each do |planet|
-      hash[planet.first] = planet.last
-    end
+    PLANTES.map do |planet|
+      [planet.first, planet.last]
+    end.to_h
   end
 end

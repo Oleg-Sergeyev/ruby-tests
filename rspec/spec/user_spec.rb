@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/user'
-
 RSpec.describe User do
-  let(:user_ru) { described_class.new(generate(:ru, :male, true)) }
-  let(:user_eng) { described_class.new(generate(:eng, nil, true)) }
-  let(:user_ru_fault) { described_class.new(generate(:ru, :male, false)) }
-  let(:user_eng_fault) { described_class.new(generate(:eng, nil, false)) }
+  let(:user_ru) { described_class.new generate(:ru) }
+  let(:user_eng) { described_class.new generate(:eng) }
+
   it_behaves_like 'UserMethods', User
 
   context 'Созданный пользователь RU содержит корректный', :lesson do
@@ -25,23 +22,20 @@ RSpec.describe User do
       expect(user_eng.first_name).to be_latin
     end
   end
-  context 'Пользователь RU_FAULT содержит', :lesson do
+  context 'Создаваемый пользователь RU_FAULT содержит', :lesson do
     it 'некорректный электронный адрес!' do
-      expect(user_ru_fault.email).to not_email
-      # expect(user_eng_fault.first_name).to raise_error('Некорректный электронный адрес!')
+      expect { described_class.new(generate(:ru, { email: :wrong })) }.to raise_error(UserConstructed::Error)
     end
     it 'некорректное имя!' do
-      expect(user_ru_fault.first_name).to not_cyrillic
-      # expect(user_eng_fault.first_name).to raise_error('Некорректное имя!')
+      expect { described_class.new(generate(:ru, { first_name: :wrong })) }.to raise_error(UserConstructed::Error)
     end
   end
-  context 'Пользователь Eng_FAULT содержит', :lesson do
+  context 'Создаваемый пользователь Eng_FAULT содержит', :lesson do
     it 'некорректный электронный адрес!' do
-      expect(user_eng_fault.email).to not_email
-      # expect(user_eng_fault.email).to raise_error('Некорректный электронный адрес!')
+      expect { described_class.new(generate(:eng, { email: :wrong })) }.to raise_error(UserConstructed::Error)
     end
     it 'некорректное имя!' do
-      expect(user_eng_fault.first_name).to not_latin
+      expect { described_class.new(generate(:eng, { first_name: :wrong })) }.to raise_error(UserConstructed::Error)
     end
   end
 end
