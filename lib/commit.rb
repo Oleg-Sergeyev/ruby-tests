@@ -23,4 +23,8 @@ class Commit
   def committers
     commits.map { |array| array['commit']['author']['name'] }.uniq
   end
+
+  def to_h
+    commits.first
+  end
 end
