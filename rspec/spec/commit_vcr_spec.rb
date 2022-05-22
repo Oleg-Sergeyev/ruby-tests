@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Commit do
-  let(:github_commits) { instance_double(Commit) }
+  let(:github_commits) do
+    VCR.use_cassette('github/commits') { Commit.new }
+  end
 
   before do
     allow(github_commits).to receive(:count).and_return(14)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'open-uri'
+require 'faraday'
 require 'json'
 
 # class COMMIT
@@ -9,13 +9,15 @@ class Commit
   attr_accessor :commits
 
   def initialize(url = COMMITS)
-    @commits = JSON.load(URI.open(url))
+    @commits = JSON.parse(Faraday.get(url).body, symbolize_names: true)
+  end
+
+  def self
+    commits
   end
 
   def count
-    arr_size = commits.map { |array| array.dig['commit'] }.size
-    puts "SIZE = #{arr_size}"
-    arr_size
+    commits.map { |array| array.dig['commit'] }.size
   end
 
   def committers

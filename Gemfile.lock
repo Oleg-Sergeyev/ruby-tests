@@ -60,6 +60,7 @@ GEM
     ruby2_keywords (0.0.5)
     sys-uname (1.2.2)
       ffi (~> 1.1)
+    vcr (6.1.0)
 
 PLATFORMS
   x86_64-linux
@@ -70,6 +71,7 @@ DEPENDENCIES
   ffaker
   rake
   rspec
+  vcr
 
 BUNDLED WITH
    2.3.13
