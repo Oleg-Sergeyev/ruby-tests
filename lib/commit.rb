@@ -6,25 +6,10 @@ require 'json'
 # class COMMIT
 class Commit
   COMMITS = 'https://api.github.com/repos/Oleg-Sergeyev/ruby-tests/commits'
-  attr_accessor :commits
+  attr_reader :commits, :committers
 
-  def initialize(url = COMMITS)
-    @commits = JSON.parse(Faraday.get(url).body, symbolize_names: true)
-  end
-
-  def self
-    commits
-  end
-
-  def count
-    commits.map { |array| array.dig['commit'] }.size
-  end
-
-  def committers
-    commits.map { |array| array['commit']['author']['name'] }.uniq
-  end
-
-  def to_h
-    commits.first
+  def self.call
+    @commits = JSON.parse(Faraday.get(COMMITS).body)
+    @commits.size
   end
 end

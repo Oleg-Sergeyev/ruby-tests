@@ -1,32 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe Commit do
-  let(:github_commits) do
-    VCR.use_cassette('github/commits') { Commit.new }
-  end
-
-  before do
-    allow(github_commits).to receive(:count).and_return(14)
-    allow(github_commits).to receive(:committers).and_return([''])
-    allow(github_commits).to receive(:self).and_return(self)
-    allow(github_commits).to receive(:to_h).and_return(Hash)
-  end
-
-  it :self do
-    expect(github_commits).not_to be Commit
-  end
-
-  it :to_h do
-    expect(github_commits.to_h).respond_to? :keys
-  end
-
-  it :count do
-    expect(github_commits.count).to eq 14
-    expect(github_commits.count).to be_kind_of(Integer)
-  end
-
-  it :committers do
-    expect(github_commits.committers).respond_to? :array
-    expect(github_commits.committers).not_to be_empty
+  context 'возвращает чило коммитов' do
+    it :call do
+      expect(described_class).respond_to? :call
+    end
+    it :call do
+      VCR.use_cassette('commits', record: :once) do
+        expect(described_class.call).to eq 18
+      end
+    end
   end
 end

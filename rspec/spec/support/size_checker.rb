@@ -3,7 +3,7 @@
 # module SizeChecker
 module SizeChecker
   BYTES = 1_024
-  RANGE = (1...999).freeze
+  RANGE = (1...999)
   def convert_by_integer_converter(value)
     Services::IntegerConverter.resize(value)
   end

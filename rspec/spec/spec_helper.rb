@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-# Dir.children("#{Dir.pwd}/spec/support").each { |file| require_relative "support/#{file}" }
+require 'rubygems'
+require 'bundler/setup'
+
+Bundler.require(:default)
+
 Dir['spec/support/*.rb'].each do |file|
   require_relative "../#{file}"
 end
